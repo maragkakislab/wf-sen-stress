@@ -1,0 +1,9 @@
+name: m6anet
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - python>=3.8.0
+  - pip:
+    - pip
+    - git+https://github.com/mnsmar/m6anet@c43139e3392758cbb96526f98ffd752fd076918d

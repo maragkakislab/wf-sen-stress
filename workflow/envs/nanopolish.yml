@@ -1,0 +1,6 @@
+name: nanopolish
+channels:
+  - defaults
+  - bioconda
+dependencies:
+  - nanopolish

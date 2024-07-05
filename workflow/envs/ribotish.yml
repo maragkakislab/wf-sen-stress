@@ -1,0 +1,16 @@
+name: ribotish
+channels:
+  - conda-forge
+  - bioconda
+  - defaults
+dependencies:
+  - pysam >= 0.8.3
+  - scipy >= 0.15.1
+  - matplotlib >= 1.4.3
+  - pip
+  - pip:
+    - pysam
+    - scipy
+    - matplotlib
+    - ribotish
+

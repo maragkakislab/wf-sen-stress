@@ -1,0 +1,7 @@
+name: gb2gtf
+channels:
+  - defaults
+  - bioconda
+dependencies:
+  - perl-bioperl=1.7.2
+  - gffread=0.12.7

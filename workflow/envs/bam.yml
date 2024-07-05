@@ -1,0 +1,12 @@
+name: bam
+channels:
+  - conda-forge
+  - bioconda
+  - defaults
+dependencies:
+  - samtools>1.15
+  - pip
+  - pip:
+    - pysam
+    - tabletools
+    - statistics

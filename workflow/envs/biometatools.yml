@@ -1,0 +1,11 @@
+name: biometatools
+channels:
+  - conda-forge
+  - bioconda
+  - defaults
+dependencies:
+  - samtools>1.15
+  - pip
+  - pip:
+    - pysam
+    - biometatools>=1.0.5

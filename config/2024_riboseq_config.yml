@@ -1,0 +1,40 @@
+# Directories used in workflow.
+SAMPLES_DIR: "samples"
+ANALYSIS_DIR: "analysis"
+LOGS_DIR: "logs"
+DATA_DIR: "data"
+EXP_DIR: "experiment"
+RAW_DIR: "raw"
+SCRIPTS_DIR: "workflow/scripts"
+
+
+# Sample data
+
+RAW: [
+  ["CTg-1_S4_R1_001", "Ribo", "CTg_1"],
+  ["CTg-2_S5_R1_001", "Ribo", "CTg_2"],
+  ["CTg-3_S6_R1_001", "Ribo", "CTg_3"],
+  ["Cyc-1_S1_R1_001", "Ribo", "Cyc_1"],
+  ["Cyc-2_S2_R1_001", "Ribo", "Cyc_2"],
+  ["Cyc-3_S3_R1_001", "Ribo", "Cyc_3"],
+  ["ETg-1_S10_R1_001", "Ribo", "ETg_1"],
+  ["ETg-2_S11_R1_001", "Ribo", "ETg_2"],
+  ["ETg-3_S12_R1_001", "Ribo", "ETg_3"],
+  ["Etop-1_S7_R1_001", "Ribo", "Etop_1"],
+  ["Etop-2_S8_R1_001", "Ribo", "Etop_2"],
+  ["Etop-3_S9_R1_001", "Ribo", "Etop_3"],
+  ["RNA_10_CTg_1_S10_R1_001", "RNA", "CTg_1"],
+  ["RNA_11_CTg_2_S11_R1_001", "RNA", "CTg_2"],
+  ["RNA_12_CTg_3_S12_R1_001", "RNA", "CTg_2"],
+  ["RNA_7_C_1_S7_R1_001", "RNA", "Cyc_1"],
+  ["RNA_8_C_2_S8_R1_001", "RNA", "Cyc_2"],
+  ["RNA_9_C_3_S9_R1_001", "RNA", "Cyc_3"],
+  ["RNA_1_E_1_S1_R1_001", "RNA", "Etop_1"],
+  ["RNA_2_E_2_S2_R1_001", "RNA", "Etop_2"],
+  ["RNA_3_E_3_S3_R1_001", "RNA", "Etop_3"],
+  ["RNA_4_ETg_1_S4_R1_001", "RNA", "ETg_1"],
+  ["RNA_5_ETg_2_S5_R1_001", "RNA", "ETg_2"],
+  ["RNA_6_ETg_3_S6_R1_001", "RNA", "ETg_3"],
+]
+
+ADAPTOR: "AGATCGGAAGAGCACACGTCT"
