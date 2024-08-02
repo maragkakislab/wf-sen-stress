@@ -1,0 +1,94 @@
+# Directories used in workflow.
+ANALYSIS_DIR: "analysis"
+DATA_DIR: "data"
+RAW_DIR: "raw"
+EXP_DIR: "experiments"
+IGV_DIR: "igv"
+SAMPLES_DIR: "samples"
+SCRIPTS_DIR: "workflow/scripts"
+TRASH_DIR: "trash"
+
+# Path to download data from.
+RSYNC_PATH: 'niairplggcgu.irp.nia.nih.gov:/store/seq/ont/experiments/'
+
+# Other variables.
+ASSEMBLY: 'hg38'
+
+# Sample data
+####[sample name, seqtype, flow cell, experiment, barcode]
+SAMPLES: [
+    ['20231222_Etop_0h_A_1',  '20231222_hsa_PCR_IMR90_SISREtopTg_1','nanopore',('SQK-PCB111-24', 'FLO-PRO002','01')],
+    ['20231222_Etop_0h_A_2', '20231222_hsa_PCR_IMR90_SISREtopTg_1','nanopore',('SQK-PCB111-24', 'FLO-PRO002','02')],
+    ['20231222_Etop_0h_A_3', '20231222_hsa_PCR_IMR90_SISREtopTg_1','nanopore',('SQK-PCB111-24', 'FLO-PRO002','03')],
+    ['20231222_Etop_24h_Tg_1', '20231222_hsa_PCR_IMR90_SISREtopTg_1','nanopore',('SQK-PCB111-24', 'FLO-PRO002','04')],
+    ['20231222_Etop_24h_Tg_2', '20231222_hsa_PCR_IMR90_SISREtopTg_1','nanopore',('SQK-PCB111-24', 'FLO-PRO002','05')],
+    ['20231222_Etop_24h_Tg_3', '20231222_hsa_PCR_IMR90_SISREtopTg_1','nanopore',('SQK-PCB111-24', 'FLO-PRO002','06')],
+    ['20231222_Etop_48h_Tg_1', '20231222_hsa_PCR_IMR90_SISREtopTg_1','nanopore',('SQK-PCB111-24', 'FLO-PRO002','07')],
+    ['20231222_Etop_48h_Tg_2', '20231222_hsa_PCR_IMR90_SISREtopTg_1','nanopore',('SQK-PCB111-24', 'FLO-PRO002','08')],
+    ['20231222_Etop_48h_Tg_3', '20231222_hsa_PCR_IMR90_SISREtopTg_1','nanopore',('SQK-PCB111-24', 'FLO-PRO002','09')],
+    ['20231222_Etop_72h_Tg_1', '20231222_hsa_PCR_IMR90_SISREtopTg_1','nanopore',('SQK-PCB111-24', 'FLO-PRO002','10')],
+    ['20231222_Etop_72h_Tg_2', '20231222_hsa_PCR_IMR90_SISREtopTg_1','nanopore',('SQK-PCB111-24', 'FLO-PRO002','11')],
+    ['20231222_Etop_72h_Tg_3', '20231222_hsa_PCR_IMR90_SISREtopTg_1','nanopore',('SQK-PCB111-24', 'FLO-PRO002','12')],
+    ['20231230_Etop_0h_A_1', '20231230_hsa_PCR_IMR90_SISREtopArs_1','nanopore',('SQK-PCB111-24', 'FLO-PRO002','01')]
+    ['20231230_Etop_0h_A_2', '20231230_hsa_PCR_IMR90_SISREtopArs_1','nanopore',('SQK-PCB111-24', 'FLO-PRO002','02')],
+    ['20231230_Etop_0h_A_3', '20231230_hsa_PCR_IMR90_SISREtopArs_1','nanopore',('SQK-PCB111-24', 'FLO-PRO002','03')],
+    ['20231230_Etop_0h_B_1', '20231230_hsa_PCR_IMR90_SISREtopArs_1','nanopore',('SQK-PCB111-24', 'FLO-PRO002','13')],
+    ['20231230_Etop_0h_B_2', '20231230_hsa_PCR_IMR90_SISREtopArs_1','nanopore',('SQK-PCB111-24', 'FLO-PRO002','14')],
+    ['20231230_Etop_0h_B_3', '20231230_hsa_PCR_IMR90_SISREtopArs_1','nanopore',('SQK-PCB111-24', 'FLO-PRO002','15')],
+    ['20231230_Etop_24h_Ars_1', '20231230_hsa_PCR_IMR90_SISREtopArs_1','nanopore',('SQK-PCB111-24', 'FLO-PRO002','16')],
+    ['20231230_Etop_24h_Ars_2', '20231230_hsa_PCR_IMR90_SISREtopArs_1','nanopore',('SQK-PCB111-24', 'FLO-PRO002','17')],
+    ['20231230_Etop_24h_Ars_3', '20231230_hsa_PCR_IMR90_SISREtopArs_1','nanopore',('SQK-PCB111-24', 'FLO-PRO002','18')],
+    ['20231230_Etop_48h_Ars_1', '20231230_hsa_PCR_IMR90_SISREtopArs_1','nanopore',('SQK-PCB111-24', 'FLO-PRO002','19')],
+    ['20231230_Etop_48h_Ars_2', '20231230_hsa_PCR_IMR90_SISREtopArs_1','nanopore',('SQK-PCB111-24', 'FLO-PRO002','20')],
+    ['20231230_Etop_48h_Ars_3', '20231230_hsa_PCR_IMR90_SISREtopArs_1','nanopore',('SQK-PCB111-24', 'FLO-PRO002','21')],
+    ['20231230_Etop_72h_Ars_1', '20231230_hsa_PCR_IMR90_SISREtopArs_1','nanopore',('SQK-PCB111-24', 'FLO-PRO002','22')],
+    ['20231230_Etop_72h_Ars_2', '20231230_hsa_PCR_IMR90_SISREtopArs_1','nanopore',('SQK-PCB111-24', 'FLO-PRO002','23')],
+    ['20231230_Etop_72h_Ars_3', '20231230_hsa_PCR_IMR90_SISREtopArs_1','nanopore',('SQK-PCB111-24', 'FLO-PRO002','24')],
+    ['20240202_Etop_0h_1', '20240202_hsa_PCR_IMR90_SISREtopArs300_1', 'nanopore', ('SQK-PCB111-24', 'FLO-PRO002','04')],
+    ['20240202_Etop_0h_2', '20240202_hsa_PCR_IMR90_SISREtopArs300_1', 'nanopore', ('SQK-PCB111-24', 'FLO-PRO002','05')],
+    ['20240202_Etop_0h_3', '20240202_hsa_PCR_IMR90_SISREtopArs300_1', 'nanopore', ('SQK-PCB111-24', 'FLO-PRO002','06')],
+    ['20240202_Etop_24h_A300_1', '20240202_hsa_PCR_IMR90_SISREtopArs300_1', 'nanopore', ('SQK-PCB111-24', 'FLO-PRO002','07')],
+    ['20240202_Etop_24h_A300_2', '20240202_hsa_PCR_IMR90_SISREtopArs300_1', 'nanopore', ('SQK-PCB111-24', 'FLO-PRO002','08')],
+    ['20240202_Etop_24h_A300_3', '20240202_hsa_PCR_IMR90_SISREtopArs300_1', 'nanopore', ('SQK-PCB111-24', 'FLO-PRO002','09')],
+    ['20240202_Etop_48h_A300_1', '20240202_hsa_PCR_IMR90_SISREtopArs300_1', 'nanopore', ('SQK-PCB111-24', 'FLO-PRO002','10')],
+    ['20240202_Etop_48h_A300_2', '20240202_hsa_PCR_IMR90_SISREtopArs300_1', 'nanopore', ('SQK-PCB111-24', 'FLO-PRO002','11')],
+    ['20240202_Etop_48h_A300_3', '20240202_hsa_PCR_IMR90_SISREtopArs300_1', 'nanopore', ('SQK-PCB111-24', 'FLO-PRO002','12')],
+    ['20240202_Etop_72h_A300_1', '20240202_hsa_PCR_IMR90_SISREtopArs300_1', 'nanopore', ('SQK-PCB111-24', 'FLO-PRO002','13')],
+    ['20240202_Etop_72h_A300_2', '20240202_hsa_PCR_IMR90_SISREtopArs300_1', 'nanopore', ('SQK-PCB111-24', 'FLO-PRO002','14')],
+    ['20240202_Etop_72h_A300_3', '20240202_hsa_PCR_IMR90_SISREtopArs300_1', 'nanopore', ('SQK-PCB111-24', 'FLO-PRO002','15')],
+    ['20240202_Etop_0h_1', '20240202_hsa_PCR_IMR90_SISREtopCPA100_1', 'nanopore', ('SQK-PCB111-24','FLO-PRO002','04')],
+    ['20240202_Etop_0h_2', '20240202_hsa_PCR_IMR90_SISREtopCPA100_1', 'nanopore', ('SQK-PCB111-24','FLO-PRO002','05')],
+    ['20240202_Etop_0h_3', '20240202_hsa_PCR_IMR90_SISREtopCPA100_1', 'nanopore', ('SQK-PCB111-24','FLO-PRO002','06')],
+    ['20240202_Etop_24h_CPA_1', '20240202_hsa_PCR_IMR90_SISREtopCPA100_1', 'nanopore', ('SQK-PCB111-24','FLO-PRO002','16')],
+    ['20240202_Etop_24h_CPA_2', '20240202_hsa_PCR_IMR90_SISREtopCPA100_1', 'nanopore', ('SQK-PCB111-24','FLO-PRO002','17')],
+    ['20240202_Etop_24h_CPA_3', '20240202_hsa_PCR_IMR90_SISREtopCPA100_1', 'nanopore', ('SQK-PCB111-24','FLO-PRO002','18')],
+    ['20240202_Etop_48h_CPA_1', '20240202_hsa_PCR_IMR90_SISREtopCPA100_1', 'nanopore', ('SQK-PCB111-24','FLO-PRO002','19')],
+    ['20240202_Etop_48h_CPA_2', '20240202_hsa_PCR_IMR90_SISREtopCPA100_1', 'nanopore', ('SQK-PCB111-24','FLO-PRO002','20')],
+    ['20240202_Etop_48h_CPA_3', '20240202_hsa_PCR_IMR90_SISREtopCPA100_1', 'nanopore', ('SQK-PCB111-24','FLO-PRO002','21')],
+    ['20240202_Etop_72h_CPA_1', '20240202_hsa_PCR_IMR90_SISREtopCPA100_1', 'nanopore', ('SQK-PCB111-24','FLO-PRO002','22')],
+    ['20240202_Etop_72h_CPA_2', '20240202_hsa_PCR_IMR90_SISREtopCPA100_1', 'nanopore', ('SQK-PCB111-24','FLO-PRO002','23')],
+    ['20240202_Etop_72h_CPA_3', '20240202_hsa_PCR_IMR90_SISREtopCPA100_1', 'nanopore', ('SQK-PCB111-24','FLO-PRO002','24')],
+    ['20240419_C_1', 'SQK-PCB111-24', 'FLO-PRO002', '20240419_hsa_PCR_IMR90_ATF4delta', '01'],
+    ['20240419_C_2', 'SQK-PCB111-24', 'FLO-PRO002', '20240419_hsa_PCR_IMR90_ATF4delta', '02'],
+    ['20240419_C_3', 'SQK-PCB111-24', 'FLO-PRO002', '20240419_hsa_PCR_IMR90_ATF4delta', '03'],
+    ['20240419_CTg_1', 'SQK-PCB111-24', 'FLO-PRO002', '20240419_hsa_PCR_IMR90_ATF4delta', '04'],
+    ['20240419_CTg_2', 'SQK-PCB111-24', 'FLO-PRO002', '20240419_hsa_PCR_IMR90_ATF4delta', '05'],
+    ['20240419_CTg_3', 'SQK-PCB111-24', 'FLO-PRO002', '20240419_hsa_PCR_IMR90_ATF4delta', '06'],
+    ['20240419_Cdelta_1', 'SQK-PCB111-24', 'FLO-PRO002', '20240419_hsa_PCR_IMR90_ATF4delta', '07'],
+    ['20240419_Cdelta_2', 'SQK-PCB111-24', 'FLO-PRO002', '20240419_hsa_PCR_IMR90_ATF4delta', '08'],
+    ['20240419_Cdelta_3', 'SQK-PCB111-24', 'FLO-PRO002', '20240419_hsa_PCR_IMR90_ATF4delta', '09'],
+    ['20240419_CTgdelta_1', 'SQK-PCB111-24', 'FLO-PRO002', '20240419_hsa_PCR_IMR90_ATF4delta', '10'],
+    ['20240419_CTgdelta__2', 'SQK-PCB111-24', 'FLO-PRO002', '20240419_hsa_PCR_IMR90_ATF4delta', '11'],
+    ['20240419_E_1', 'SQK-PCB111-24', 'FLO-PRO002', '20240419_hsa_PCR_IMR90_ATF4delta', '13'],
+    ['20240419_E_2', 'SQK-PCB111-24', 'FLO-PRO002', '20240419_hsa_PCR_IMR90_ATF4delta', '14'],
+    ['20240419_E_3', 'SQK-PCB111-24', 'FLO-PRO002', '20240419_hsa_PCR_IMR90_ATF4delta', '15'],
+    ['20240419_ETg_1', 'SQK-PCB111-24', 'FLO-PRO002', '20240419_hsa_PCR_IMR90_ATF4delta', '16'],
+    ['20240419_ETg_2', 'SQK-PCB111-24', 'FLO-PRO002', '20240419_hsa_PCR_IMR90_ATF4delta', '17'],
+    ['20240419_ETg_3', 'SQK-PCB111-24', 'FLO-PRO002', '20240419_hsa_PCR_IMR90_ATF4delta', '18'],
+    ['20240419_Edelta_1', 'SQK-PCB111-24', 'FLO-PRO002', '20240419_hsa_PCR_IMR90_ATF4delta', '19'],
+    ['20240419_Edelta_2', 'SQK-PCB111-24', 'FLO-PRO002', '20240419_hsa_PCR_IMR90_ATF4delta', '20'],
+    ['20240419_Edelta_3', 'SQK-PCB111-24', 'FLO-PRO002', '20240419_hsa_PCR_IMR90_ATF4delta', '21'],
+    ['20240419_ETgdelta_1', 'SQK-PCB111-24', 'FLO-PRO002', '20240419_hsa_PCR_IMR90_ATF4delta', '22'],
+    ['20240419_ETgdelta__2', 'SQK-PCB111-24', 'FLO-PRO002', '20240419_hsa_PCR_IMR90_ATF4delta', '23']
+]
+
