@@ -4,5 +4,8 @@ channels:
   - bioconda
   - defaults
 dependencies:
+  - pip
   - minimap2
   - samtools>1.10
+  - pip:
+    - tabletools

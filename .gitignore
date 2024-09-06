@@ -2,4 +2,4 @@ data/
 raw/
 analysis/
 *.gz
-
+*.DS_Store
