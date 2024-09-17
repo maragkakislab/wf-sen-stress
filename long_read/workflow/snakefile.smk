@@ -125,10 +125,14 @@ rule aggregate:
         #### and file_paths to counts are items 
         expts = {key:[] for key in experiments.keys()}
         for file_path in input[0]:
-            s = file_path.split('/')[-1]
-            e = samples[s].parent_exp 
-            if e in expts.keys():
-                expts[e].append(file_path)
+            split = file_path.split('/')
+            if len(split) > 1:
+                s = split[-2]
+                e = samples[s].parent_exp 
+                if e in expts.keys():
+                    expts[e].append(file_path)
+            else:
+                continue
 
 
         #### loops aggretation over each experiment and saves it to an experiment folder

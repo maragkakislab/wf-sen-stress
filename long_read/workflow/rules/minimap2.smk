@@ -126,10 +126,10 @@ rule count_aligned_reads_per_transcript:
     output:
         ANALYSIS_DIR + "/counts/{sample}/reads.toTranscriptome.txt",
     conda:
-        "../envs/minimap2.yml" 
+        "../envs/minimap2.yml"
     shell:
         """
-        ../{SCRIPTS_DIR}/sam_per_ref_count_statistics.py \
+        {SCRIPTS_DIR}/sam_per_ref_count_statistics.py \
             --ifile {input.aligned} \
             --ref-col-name transcript \
             --cnt-col-name count \

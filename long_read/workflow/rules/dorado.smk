@@ -47,10 +47,11 @@ def dorado_unstranded_options(experiment):
 # Rule dorado_basecall runs the dorado basecaller.
 rule dorado_basecall:
     input:
-        file_dir = expand(RAW_DIR + "/pod5/{e}/runs/no_sample/{folder}/pod5/",
-        folder=["*"])
+        origin = RAW_DIR + "/pod5/{e}/origin.txt",
+        file_dir = RAW_DIR + "/pod5/{e}/pod5"
+
     output:
-        RAW_DIR + "/{e}/dorado/calls.bam"
+        EXP_DIR + "/{e}/dorado/calls.bam"
     params:
         model = lambda wilds: DORADO_MODELS.get(wilds.e, DORADO_DEFAULT_MODEL),
         additional_opts = lambda wilds:
@@ -62,7 +63,7 @@ rule dorado_basecall:
         gpu = 2,
         gpu_model = "[gpuv100x|gpua100]",
         mem_mb = 64*1024,
-        runtime = 8*24*60
+        runtime = 1*24*60
     envmodules:
         "dorado/0.7.1"
     shell:
@@ -82,14 +83,14 @@ rule dorado_basecall:
 # SQK-RPB004_barcode01.bam).
 rule dorado_demux:
     input:
-        RAW_DIR + "/{e}/dorado/calls.bam"
+        EXP_DIR + "/{e}/dorado/calls.bam"
     output:
-        directory = directory(RAW_DIR + "/{e}/dorado/demux/"),
+        directory = directory(EXP_DIR + "/{e}/dorado/demux"),
     threads:
         12
     resources:
         mem_mb = 64*1024,
-        runtime = 4*24*60
+        runtime = 2*24*60
     envmodules:
         "dorado/0.7.1"
     shell:
@@ -110,9 +111,9 @@ rule dorado_demux:
 # attribute.
 rule dorado_demux_isolate_selected_bam:
     input:
-        RAW_DIR + "/{e}/dorado/demux/",
+        EXP_DIR + "/{e}/dorado/demux/",
     output:
-        RAW_DIR + "/{e}/dorado/demux_selected/{kit}_barcode{b}.bam",
+        EXP_DIR + "/{e}/dorado/demux_selected/{kit}_barcode{b}.bam",
     shell:
         """
         mv {input}/{wildcards.kit}_barcode{wildcards.b}.bam {output}
@@ -127,19 +128,22 @@ def dorado_bam_from_basecalling(wilds):
 
     if s.is_barcoded():
         # e.g. SQK-RPB004_barcode01.bam
-        return os.path.join(RAW_DIR, s.parent_exp, "dorado",
+        return os.path.join(EXP_DIR, s.parent_exp, "dorado",
                             "demux_selected", s.kit + '_barcode' + s.barcode + '.bam')
 
-    return os.path.join(RAW_DIR, s.parent_exp, "dorado",
+    return os.path.join(EXP_DIR, s.parent_exp, "dorado",
                         "calls.bam")
 
 
 # Rule dorado_get_fastq_from_basecalled_bam_for_sample finds and converts the
 # basecalled bam file corresponding to the requested sample {s} to fastq.
 rule dorado_get_fastq_from_basecalled_bam_for_sample:
-    input: dorado_bam_from_basecalling
-    output: RAW_DIR + "/fastq/{s}_reads.fastq.gz"
-    threads: 10
+    input: 
+        dorado_bam_from_basecalling
+    output: 
+        RAW_DIR + "/fastq/{s}_reads.fastq.gz"
+    threads: 
+        10
     conda:
         "../envs/samtools.yml"
     shell:
@@ -165,7 +169,7 @@ rule dorado_pychopper_trim_orient_reads:
     threads: 8
     resources:
         mem_mb = 20*1024,
-        runtime = 3*24*60,
+        runtime = 1*24*60,
         disk_mb = 20*1024
     conda:
         "../envs/pychopper.yml"
