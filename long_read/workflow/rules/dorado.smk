@@ -1,30 +1,5 @@
 DORADO_MODELS = config.get('DORADO_MODELS', {})
 DORADO_DEFAULT_MODEL = config.get('DORADO_DEFAULT_MODEL', 'hac')
-
-# # Rule dorado_fast5_to_pod5 converts fast5 files to pod5.
-# rule dorado_fast5_to_pod5:
-#     input:
-#         RAW_DIR + "/{e}/origin.txt"
-#     output:
-#         directory(EXP_DIR + "/{e}/runs_pod5")
-#     threads:
-#         5 # NEVER set this higher on biowulf; crashes due to IO
-#     resources:
-#         mem_mb = 32*1024,
-#         runtime = 8*24*60
-#     conda:
-#         "../envs/pod5.yml"
-#     shell:
-#         """
-#         mkdir -p {output} 
-#         pod5 convert fast5 \
-#                 {RAW_DIR}/{wildcards.e}/runs/ \
-#                 --recursive \
-#                 --threads {threads} \
-#                 --output {output}/
-#         """
-
-
 # dorado_barcode_options returns the additional options that are used in the
 # dorado_basecaller to enable detection of barcodes.
 def dorado_barcode_options(experiment):
@@ -49,11 +24,12 @@ rule dorado_basecall:
     input:
         origin = RAW_DIR + "/pod5/{e}/origin.txt",
         file_dir = RAW_DIR + "/pod5/{e}/pod5"
-
     output:
         EXP_DIR + "/{e}/dorado/calls.bam"
     params:
-        model = lambda wilds: DORADO_MODELS.get(wilds.e, DORADO_DEFAULT_MODEL),
+        model = config["DORADO_MODEL"]
+        barcode_ends=config[""]
+        #model = lambda wilds: DORADO_MODELS.get(wilds.e, DORADO_DEFAULT_MODEL),
         additional_opts = lambda wilds:
             " ".join([dorado_barcode_options(experiments[wilds.e]),
                       dorado_unstranded_options(experiments[wilds.e])]),

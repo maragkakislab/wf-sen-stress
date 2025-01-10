@@ -70,8 +70,6 @@ for d in config['SAMPLE_DATA']:
 
 
 ##### include rules #####
-
-include: "rules/annotation.smk"
 include: "rules/dorado.smk"
 include: "rules/minimap2.smk"
 
@@ -115,7 +113,7 @@ rule run_all:
 
 rule aggregate:
     input:
-        expand(ANALYSIS_DIR + "/counts/{s}/reads.toGenome.txt", s=samples.keys()),
+       file_paths = expand(ANALYSIS_DIR + "/counts/{s}/reads.toGenome.txt", s=samples.keys()),
     output:
         expand(ANALYSIS_DIR + "/{e}/all_genome_counts.txt",
         e=experiments.keys()),
@@ -124,23 +122,22 @@ rule aggregate:
         #### makes a dictionary where experiments are keys 
         #### and file_paths to counts are items 
         expts = {key:[] for key in experiments.keys()}
-        for file_path in input[0]:
+        for file_path in input['file_paths']:
+            print(file_path)
             split = file_path.split('/')
             if len(split) > 1:
                 s = split[-2]
+                print(s)
                 e = samples[s].parent_exp 
                 if e in expts.keys():
                     expts[e].append(file_path)
-            else:
-                continue
-
 
         #### loops aggretation over each experiment and saves it to an experiment folder
-        for expt in expts:
+        for expt in expts.keys():
             dfs = [pd.read_csv(file_path, delimiter='\t') for file_path in expts[expt]]
             combined_df = pd.concat(dfs, axis=0, ignore_index=True)
             wide_df = combined_df.pivot(index= "gene", columns= 'sample', values = 'count')
-            wide_df.to_csv(f"ANALYSIS_DIR/{expt}/all_genome_counts.txt", sep = '\t')
+            wide_df.to_csv(ANALYSIS_DIR + f"/{expt}_all_genome_counts.txt", sep = '\t')
 
 
 # rule transcriptome_combined:
