@@ -1,10 +1,12 @@
 # align_reads_to_genome aligns the input reads to the genome.
+ASSEMBLY = config["ASSEMBLY"]
+
 rule align_reads_to_genome:
     input:
-        fastq = RAW_DIR + "/fastq/{sample}_reads.fastq.gz",
-        genome = DATA_DIR + "/hg38/genome/genome.fa",
+        fastq = RAW_DIR + "/fastq/{e}/{s}_reads.fastq.gz",
+        genome = DATA_DIR + /ASSEMBLY + "/genome/genome.fa",
     output:
-        temp(SAMPLES_DIR + "/{sample}/reads.toGenome.bam"),
+        temp(SAMPLES_DIR + "/{s}/reads.toGenome.bam"),
     threads: 50
     resources:
         mem_mb = 100*1024,
@@ -33,8 +35,8 @@ rule align_reads_to_genome:
 # align_reads_to_transcriptome: aligns the input reads to the transcriptome.
 rule align_reads_to_transcriptome:
     input:
-        fastq =  RAW_DIR + "/fastq/{sample}_reads.fastq.gz",
-        transcriptome = DATA_DIR + "/hg38/transcripts.fa",
+        fastq = RAW_DIR + "/fastq/{e}/{s}_reads.fastq.gz",
+        transcriptome = DATA_DIR + "/hg38/transcriptome/transcripts.fa",
     output:
         temp(SAMPLES_DIR + "/{sample}/reads.toTranscriptome.bam"),
     threads: 50
@@ -62,9 +64,9 @@ rule align_reads_to_transcriptome:
 # sort_bam sorts a bam file.
 rule sort_bam:
     input:
-        SAMPLES_DIR + "/{sample}/{prefix}.bam",
+        SAMPLES_DIR + "/{e}/{s}/{prefix}.bam",
     output:
-        SAMPLES_DIR + "/{sample}/{prefix}.sorted.bam",
+        SAMPLES_DIR + "/{e}/{s}/{prefix}.sorted.bam",
     threads: 20
     resources:
         mem_mb=30*1024,
@@ -84,9 +86,9 @@ rule sort_bam:
 # index_bam indexes a bam file
 rule index_bam:
     input:
-        SAMPLES_DIR + "/{sample}/{prefix}.bam",
+        SAMPLES_DIR + "/{e}/{s}/{prefix}.bam",
     output:
-        SAMPLES_DIR + "/{sample}/{prefix}.bam.bai",
+        SAMPLES_DIR + "/{e}/{s}/{prefix}.bam.bai",
     threads: 40
     resources:
         mem_mb=5*1024,
@@ -103,9 +105,9 @@ rule index_bam:
 # bamfile_flagstats outputs alignment statistics for alignments.
 rule bamfile_flagstats:
     input:
-        SAMPLES_DIR + "/{sample}/{prefix}.bam",
+        SAMPLES_DIR + "/{e}/{s}/{prefix}.bam",
     output:
-        SAMPLES_DIR + "/{sample}/{prefix}.bam.flagstats.txt",
+        SAMPLES_DIR + "/{e}/{s}/{prefix}.bam.flagstats.txt",
     threads: 4
     resources:
         mem_mb=5*1024,
@@ -121,10 +123,10 @@ rule bamfile_flagstats:
 # transcript.
 rule count_aligned_reads_per_transcript:
     input:
-        aligned = SAMPLES_DIR + "/{sample}/reads.toTranscriptome.bam",
+        aligned = SAMPLES_DIR + "{e}/{s}/reads.toTranscriptome.bam",
         transcript_tab = DATA_DIR + "/hg38/transcript-gene.tab",
     output:
-        ANALYSIS_DIR + "/counts/{sample}/reads.toTranscriptome.txt",
+        ANALYSIS_DIR + "/counts/{s}/reads.toTranscriptome.txt",
     conda:
         "../envs/minimap2.yml"
     shell:

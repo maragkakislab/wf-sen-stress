@@ -1,7 +1,21 @@
 import sys
 import glob
 
+# Load config
+config_path = "config/config.yml"
+configfile: config_path
 
+# Set variables
+# EXP_DIR must be generated manually and contain experiment files from the promethion
+ANALYSIS_DIR = config['ANALYSIS_DIR']
+DATA_DIR = config['DATA_DIR']
+RAW_DIR = config['RAW_DIR']
+EXP_DIR = config['EXP_DIR']
+SAMPLES_DIR = config['SAMPLES_DIR']
+SCRIPTS_DIR = config['SCRIPTS_DIR']
+RSYNC_PATH = config['RSYNC_PATH']
+
+# Create classes
 class sample:
     def __init__(self, name, kit, fc, parent_exp, barcode=None):
         self.name = name
@@ -21,7 +35,7 @@ class sample:
         return False
 
     def is_unstranded(self):
-        if self.kit in ['SQK-PCB111-24', 'SQK-PCS111']:
+        if self.kit in ['SQK-PCB111-24', 'SQK-PCS114-24']:
             return True
         return False
 
@@ -32,28 +46,6 @@ class experiment:
         self.kit = kit
         self.fc = fc
         self.is_barcoded = is_barcoded
-
-
-# Load config
-if "--configfile" in sys.argv:
-    i = sys.argv.index("--configfile")
-    config_path = sys.argv[i + 1]
-    configfile: config_path
-else:
-    config_path = "config/config.yml"
-    configfile: config_path
-
-
-# Set variables
-# EXP_DIR must be generated manually and contain experiment files from the promethion
-ANALYSIS_DIR = config['ANALYSIS_DIR']
-DATA_DIR = config['DATA_DIR']
-RAW_DIR = config['RAW_DIR']
-EXP_DIR = config['EXP_DIR']
-SAMPLES_DIR = config['SAMPLES_DIR']
-SCRIPTS_DIR = config['SCRIPTS_DIR']
-RSYNC_PATH = config['RSYNC_PATH']
-
 
 
 # Create a dictionary with samples and experiments.

@@ -1,13 +1,13 @@
+#Used to specify different models for different samples
 DORADO_MODELS = config.get('DORADO_MODELS', {})
 DORADO_DEFAULT_MODEL = config.get('DORADO_DEFAULT_MODEL', 'hac')
+
 # dorado_barcode_options returns the additional options that are used in the
 # dorado_basecaller to enable detection of barcodes.
 def dorado_barcode_options(experiment):
     if experiment.is_barcoded:
         return '--kit-name ' + experiment.kit
-
     return ''
-
 
 # dorado_unstranded_options returns the additional options that are used in
 # the dorado_basecaller to disable detection of adaptors. Adaptors are used in
@@ -15,21 +15,18 @@ def dorado_barcode_options(experiment):
 def dorado_unstranded_options(experiment):
     if s.is_unstranded():
         return '--no-trim'
-
     return ''
-
 
 # Rule dorado_basecall runs the dorado basecaller.
 rule dorado_basecall:
     input:
         origin = RAW_DIR + "/pod5/{e}/origin.txt",
-        file_dir = RAW_DIR + "/pod5/{e}/pod5"
+        file_dir = RAW_DIR + "/pod5/{e}/",
     output:
         EXP_DIR + "/{e}/dorado/calls.bam"
     params:
         model = config["DORADO_MODEL"]
-        barcode_ends=config[""]
-        #model = lambda wilds: DORADO_MODELS.get(wilds.e, DORADO_DEFAULT_MODEL),
+        model = lambda wilds: DORADO_MODELS.get(wilds.e, DORADO_DEFAULT_MODEL),
         additional_opts = lambda wilds:
             " ".join([dorado_barcode_options(experiments[wilds.e]),
                       dorado_unstranded_options(experiments[wilds.e])]),
@@ -59,7 +56,7 @@ rule dorado_basecall:
 # SQK-RPB004_barcode01.bam).
 rule dorado_demux:
     input:
-        EXP_DIR + "/{e}/dorado/calls.bam"
+        EXP_DIR + "/{e}/dorado/calls.bam",
     output:
         directory = directory(EXP_DIR + "/{e}/dorado/demux"),
     threads:
@@ -206,7 +203,7 @@ rule dorado_rename_final_stranded_fastq:
     input:
         lambda ws: dorado_pychopper_path_to_stranded_fastq(samples[ws.sample])
     output:
-        RAW_DIR + "/fastq/{s}_reads.fastq.gz"
+        RAW_DIR + "/fastq/{e}/{s}_reads.fastq.gz"
     shell:
         """
         mv {input} {output}
