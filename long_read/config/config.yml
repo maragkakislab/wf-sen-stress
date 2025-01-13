@@ -16,6 +16,8 @@ DORADO_MODELS: {}
 # Sample data
 # Commented samples have already been processed
 ####[sample name, kit, flow cell, experiment, barcode]
+####FOR SAMPLE NAME IF DESEQ: 'SAMPLE'_'CONDITION'_CONDITION2
+
 SAMPLE_DATA: [
     ['CA_0A', 'SQK-PCB111-24', 'FLO-PRO002', '20241231_hsa_PCR_IMR90_arsviability_1', '01'],
     ['CA_0B', 'SQK-PCB111-24', 'FLO-PRO002', '20241231_hsa_PCR_IMR90_arsviability_1', '02'],

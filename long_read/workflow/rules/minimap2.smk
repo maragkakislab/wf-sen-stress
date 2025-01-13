@@ -4,9 +4,9 @@ ASSEMBLY = config["ASSEMBLY"]
 rule align_reads_to_genome:
     input:
         fastq = RAW_DIR + "/fastq/{e}/{s}_reads.fastq.gz",
-        genome = DATA_DIR + /ASSEMBLY + "/genome/genome.fa",
+        genome = DATA_DIR + "/" + ASSEMBLY + "/genome/genome.fa",
     output:
-        temp(SAMPLES_DIR + "/{s}/reads.toGenome.bam"),
+        temp(SAMPLES_DIR + "{e}/{s}/reads.toGenome.bam"),
     threads: 50
     resources:
         mem_mb = 100*1024,
@@ -36,9 +36,9 @@ rule align_reads_to_genome:
 rule align_reads_to_transcriptome:
     input:
         fastq = RAW_DIR + "/fastq/{e}/{s}_reads.fastq.gz",
-        transcriptome = DATA_DIR + "/hg38/transcriptome/transcripts.fa",
+        transcriptome = DATA_DIR + "/" + ASSEMBLY + "/transcriptome/transcripts.fa",
     output:
-        temp(SAMPLES_DIR + "/{sample}/reads.toTranscriptome.bam"),
+        temp(SAMPLES_DIR + "{e}/{s}/reads.toTranscriptome.bam"),
     threads: 50
     resources:
         mem_mb = 100*1024,
@@ -124,9 +124,9 @@ rule bamfile_flagstats:
 rule count_aligned_reads_per_transcript:
     input:
         aligned = SAMPLES_DIR + "{e}/{s}/reads.toTranscriptome.bam",
-        transcript_tab = DATA_DIR + "/hg38/transcript-gene.tab",
+        transcript_tab = DATA_DIR + "/" + ASSEMBLY + "/transcript-gene.tab",
     output:
-        ANALYSIS_DIR + "/counts/{s}/reads.toTranscriptome.txt",
+        ANALYSIS_DIR + "/counts/{e}/{s}/reads.toTranscriptome.txt",
     conda:
         "../envs/minimap2.yml"
     shell:
@@ -149,12 +149,12 @@ rule count_aligned_reads_per_transcript:
 
 rule transcriptome_to_gene_level:
     input:
-        ANALYSIS_DIR + "/counts/{s}/reads.toTranscriptome.txt",
+        transcript = ANALYSIS_DIR + "/counts/{e}/{s}/reads.toTranscriptome.txt",
     output:
-        ANALYSIS_DIR + "/counts/{s}/reads.toGenome.txt",
+        ANALYSIS_DIR + "/counts/{e}/{s}/reads.toGenome.txt",
     run:
         import pandas as pd
-        f = input[0]
+        f = input[transcript]
         x = pd.read_csv(f, sep = '\t')
         y = x.loc[:,["sample","count","gene"]].groupby(["gene","sample"],as_index = False).sum()
         y.to_csv(output[0], sep='\t')
