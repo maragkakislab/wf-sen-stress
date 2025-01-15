@@ -16,9 +16,32 @@ DORADO_MODELS: {}
 # Sample data
 # Commented samples have already been processed
 ####[sample name, kit, flow cell, experiment, barcode]
-####FOR SAMPLE NAME IF DESEQ: 'SAMPLE'_'CONDITION'_CONDITION2
 
 SAMPLE_DATA: [
+    ['C16', 'SQK-PCB111-24', 'FLO-PRO002', '20250102_hsa_PCR_IMR90_seninducers_2B', '01'],
+    ['C17', 'SQK-PCB111-24', 'FLO-PRO002', '20250102_hsa_PCR_IMR90_seninducers_2B', '02'],
+    ['C18', 'SQK-PCB111-24', 'FLO-PRO002', '20250102_hsa_PCR_IMR90_seninducers_2B', '03'],
+    ['E4', 'SQK-PCB111-24', 'FLO-PRO002', '20250102_hsa_PCR_IMR90_seninducers_2B', '04'],
+    ['E5', 'SQK-PCB111-24', 'FLO-PRO002', '20250102_hsa_PCR_IMR90_seninducers_2B', '05'],
+    ['E6', 'SQK-PCB111-24', 'FLO-PRO002', '20250102_hsa_PCR_IMR90_seninducers_2B', '06'],
+    ['D1', 'SQK-PCB111-24', 'FLO-PRO002', '20250102_hsa_PCR_IMR90_seninducers_2B', '07'],
+    ['D2', 'SQK-PCB111-24', 'FLO-PRO002', '20250102_hsa_PCR_IMR90_seninducers_2B', '08'],
+    ['D3', 'SQK-PCB111-24', 'FLO-PRO002', '20250102_hsa_PCR_IMR90_seninducers_2B', '09'],
+    ['N4', 'SQK-PCB111-24', 'FLO-PRO002', '20250102_hsa_PCR_IMR90_seninducers_2B', '10'],
+    ['N5', 'SQK-PCB111-24', 'FLO-PRO002', '20250102_hsa_PCR_IMR90_seninducers_2B', '11'],
+    ['N6', 'SQK-PCB111-24', 'FLO-PRO002', '20250102_hsa_PCR_IMR90_seninducers_2B', '12'],
+    ['S4', 'SQK-PCB111-24', 'FLO-PRO002', '20250102_hsa_PCR_IMR90_seninducers_2B', '13'],
+    ['S5', 'SQK-PCB111-24', 'FLO-PRO002', '20250102_hsa_PCR_IMR90_seninducers_2B', '14'],
+    ['S6', 'SQK-PCB111-24', 'FLO-PRO002', '20250102_hsa_PCR_IMR90_seninducers_2B', '15'],
+    ['P4', 'SQK-PCB111-24', 'FLO-PRO002', '20250102_hsa_PCR_IMR90_seninducers_2B', '16'],
+    ['P5', 'SQK-PCB111-24', 'FLO-PRO002', '20250102_hsa_PCR_IMR90_seninducers_2B', '17'],
+    ['P6', 'SQK-PCB111-24', 'FLO-PRO002', '20250102_hsa_PCR_IMR90_seninducers_2B', '18'],
+    ['CX4', 'SQK-PCB111-24', 'FLO-PRO002', '20250102_hsa_PCR_IMR90_seninducers_2B', '19'],
+    ['CX5', 'SQK-PCB111-24', 'FLO-PRO002', '20250102_hsa_PCR_IMR90_seninducers_2B', '20'],
+    ['CX6', 'SQK-PCB111-24', 'FLO-PRO002', '20250102_hsa_PCR_IMR90_seninducers_2B', '21'],
+    ['SIQ1', 'SQK-PCB111-24', 'FLO-PRO002', '20250102_hsa_PCR_IMR90_seninducers_2B', '22'],
+    ['SIQ2', 'SQK-PCB111-24', 'FLO-PRO002', '20250102_hsa_PCR_IMR90_seninducers_2B', '23'],
+    ['SIQ3', 'SQK-PCB111-24', 'FLO-PRO002', '20250102_hsa_PCR_IMR90_seninducers_2B', '24'],
     ['CA_0A', 'SQK-PCB111-24', 'FLO-PRO002', '20241231_hsa_PCR_IMR90_arsviability_1', '01'],
     ['CA_0B', 'SQK-PCB111-24', 'FLO-PRO002', '20241231_hsa_PCR_IMR90_arsviability_1', '02'],
     ['CA_0C', 'SQK-PCB111-24', 'FLO-PRO002', '20241231_hsa_PCR_IMR90_arsviability_1', '03'],
@@ -37,7 +60,6 @@ SAMPLE_DATA: [
     ['EA_9A', 'SQK-PCB111-24', 'FLO-PRO002', '20241231_hsa_PCR_IMR90_arsviability_1', '16'],
     ['EA_9B', 'SQK-PCB111-24', 'FLO-PRO002', '20241231_hsa_PCR_IMR90_arsviability_1', '17'],
     ['EA_9C', 'SQK-PCB111-24', 'FLO-PRO002', '20241231_hsa_PCR_IMR90_arsviability_1', '18'],
-    
     # ['20231222_Etop_0h_A_1', 'SQK-PCB111-24', 'FLO-PRO002', '20231222_hsa_PCR_IMR90_SISREtopTg_1', '01'],
     # ['20231222_Etop_0h_A_2', 'SQK-PCB111-24', 'FLO-PRO002', '20231222_hsa_PCR_IMR90_SISREtopTg_1', '02'],
     # ['20231222_Etop_0h_A_3', 'SQK-PCB111-24', 'FLO-PRO002', '20231222_hsa_PCR_IMR90_SISREtopTg_1', '03'],
@@ -127,5 +149,35 @@ SAMPLE_DATA: [
     # ['20241119_GDF15_21', 'SQK-PCB111-24', 'FLO-PRO002', '20241112_hsa_IMR90_GDF15_01', '21'],
     # ['20241119_GDF15_22', 'SQK-PCB111-24', 'FLO-PRO002', '20241112_hsa_IMR90_GDF15_01', '22'],
     # ['20241119_GDF15_23', 'SQK-PCB111-24', 'FLO-PRO002', '20241112_hsa_IMR90_GDF15_01', '23'],
-    # ['20241119_GDF15_24', 'SQK-PCB111-24', 'FLO-PRO002', '20241112_hsa_IMR90_GDF15_01', '24'],
-]
+    # ['20241119_GDF15_24', 'SQK-PCB111-24', 'FLO-PRO002', '20241112_hsa_IMR90_GDF15_01', '24']
+    ]
+
+# DESeq2 Subsets
+COMPARISONS: {
+    'ars_viability': {
+        samples:[
+            ['CA_0A','Cyc_0'],
+            ['CA_0B','Cyc_0'],
+            ['CA_0C','Cyc_0'],
+            ['CA_1A','Cyc_1'],
+            ['CA_1B','Cyc_1'],
+            ['CA_1C','Cyc_1'],
+            ['CA_9A','Cyc_9'],
+            ['CA_9B','Cyc_9'],
+            ['CA_9C','Cyc_9'],
+            ['EA_0A','E_0'],
+            ['EA_0B','E_0'],
+            ['EA_0C','E_0'],
+            ['EA_1A','E_1'],
+            ['EA_1B','E_1'],
+            ['EA_1C','E_1'],
+            ['EA_9A','E_9'],
+            ['EA_9B','E_9'],
+            ['EA_9C','E_9']
+            ],     
+        cols:[
+            'sample',
+            'condition']
+    }
+}
+               

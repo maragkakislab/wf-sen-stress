@@ -1,9 +1,14 @@
 import sys
 import glob
-
+import pandas as pd
 # Load config
-config_path = "config/config.yml"
-configfile: config_path
+if "--configfile" in sys.argv:
+    i = sys.argv.index("--configfile")
+    config_path = sys.argv[i + 1]
+    configfile: config_path
+else:
+    config_path ="config/config.yml"
+    configfile: config_path
 
 # Set variables
 # EXP_DIR must be generated manually and contain experiment files from the promethion
@@ -13,7 +18,6 @@ RAW_DIR = config['RAW_DIR']
 EXP_DIR = config['EXP_DIR']
 SAMPLES_DIR = config['SAMPLES_DIR']
 SCRIPTS_DIR = config['SCRIPTS_DIR']
-RSYNC_PATH = config['RSYNC_PATH']
 
 # Create classes
 class sample:
@@ -59,15 +63,17 @@ for d in config['SAMPLE_DATA']:
     samples[s.name] = s
     experiments[s.parent_exp] = experiment(s.parent_exp, s.kit, s.fc,
                                            s.is_barcoded())
-
+comparisons = config['COMPARISONS']
+subsets = comparisons.keys()
 
 ##### include rules #####
 include: "rules/dorado.smk"
 include: "rules/minimap2.smk"
+include: "rules/DESeq2.smk"
 
 # Define rules that require minimal resources and can run on the same node
 # where the actual snakemake is running. Should be low demand processess
-localrules: run_all, aggregate
+localrules: run_all, dseq_initalize
 
 # Rule run_all collects all outputs to force execution of the whole pipeline.
 # Identified files will be produced
@@ -94,10 +100,12 @@ rule run_all:
             target=['toGenome', 'toTranscriptome'],
             ),
  
+        
         # tables aggregated across tables
-        expand(ANALYSIS_DIR + "/{e}/all_genome_counts.txt",
-        e = experiments.keys())
-        ####ANALYSIS_DIR + "/all_transcriptome_counts.txt",
+        expand(
+            ANALYSIS_DIR + "{subset}/all_genome_counts.txt",
+            subset = comparisons.keys()
+        ),
 
 ############## Rules
 

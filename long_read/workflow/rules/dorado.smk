@@ -25,7 +25,6 @@ rule dorado_basecall:
     output:
         EXP_DIR + "/{e}/dorado/calls.bam"
     params:
-        model = config["DORADO_MODEL"]
         model = lambda wilds: DORADO_MODELS.get(wilds.e, DORADO_DEFAULT_MODEL),
         additional_opts = lambda wilds:
             " ".join([dorado_barcode_options(experiments[wilds.e]),
