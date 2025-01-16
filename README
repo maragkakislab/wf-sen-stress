@@ -1,1 +1,2 @@
-My Project
+Snakemake workflows for analysis of transcriptomic data related to senescent cells and stress.
+This is currently only funcitonal for long-read PCR-cDNA analysis.
