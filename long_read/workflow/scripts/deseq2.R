@@ -20,16 +20,14 @@ option_list <- list(
               help="Model to use for DEseq2 [default: ~ condition]"),
   make_option(c("-d","--delim", default = "\t"),
               help="Delimiter [default tab]"),
-  make_option(c("-p", "--pcvars", default = NULL),
-              help="PC plot variables, separated by commas. Example: sex,time. If left empty, PCA is not performed."),
   make_option(c("-o","--odir"), default = ".",
               help="Path to output directory [default current directory]")
 )
 
 opt <- parse_args(OptionParser(option_list = option_list))
 
-data_file <- read.delim(opt$data, header = TRUE, sep = delim, stringsAsFactors = F)
-metadata <- read.delim(opt$metadata, header = TRUE, sep = delim, stringsAsFactors = T)
+data_file <- read.delim(opt$data, header = TRUE, sep = opt$delim, stringsAsFactors = F)
+metadata <- read.delim(opt$metadata, header = TRUE, sep = opt$delim, stringsAsFactors = T)
 
 #Check whether metadata rownames exist in count data
 if (!identical(colnames(metadata[,-1]),data_file$sample)) {
@@ -43,11 +41,27 @@ rownames(data_matrix)<- data_file$gene
 
 #DESeq 
 
-dds = DESeqDataSetFromMatrix(data_matrix, colData = metadata, design = opt$model)
-dds = estimateSizeFactors(dds)
-counts_norm = counts(dds, normalized = T)
+dds <- DESeqDataSetFromMatrix(data_matrix, colData = metadata, design = opt$model)
+dds <- DESeq(dds)
 
 #Generate contrasts
+odir <- opt$odir
+
+for (i in resultsNames(dds)) {
+  df <- as.data.frame(results(dds, name = i))
+  file_path <- file.path(output_dir, paste0(i, ".txt"))
+  write.table(df, file = file_path, row.names = TRUE, sep = opt$delim)
+}
+
+### Since output txt files will be variable based on available contrasts
+### This file is used to let snakemake know the rule is completed
+write.table(comparison,file=paste0(odir,"contrasts.txt"), sep = opt$delim)
+
+
+
+
+
+
 
 
 

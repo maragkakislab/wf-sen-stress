@@ -154,7 +154,6 @@ rule transcriptome_to_gene_level:
         ANALYSIS_DIR + "/counts/{s}/reads.toGenome.txt",
     run:
         import pandas as pd
-        f = input[transcript]
-        x = pd.read_csv(f, sep = '\t')
+        x = pd.read_csv(input.transcript, sep = '\t')
         y = x.loc[:,["sample","count","gene"]].groupby(["gene","sample"],as_index = False).sum()
         y.to_csv(output[0], sep='\t')

@@ -24,4 +24,3 @@ rule dseq_initalize:
         combined_df = pd.concat(dfs, axis=0, ignore_index=True)
         wide_df = combined_df.pivot(index= "gene", columns= 'sample', values = 'count')
         wide_df.to_csv({output.counts}, sep = '\t')
-
