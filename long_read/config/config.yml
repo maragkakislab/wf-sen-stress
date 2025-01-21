@@ -177,7 +177,36 @@ COMPARISONS: {
             ],     
         cols:[
             'sample',
-            'condition']
-    }
+            'condition']},
+    'alt_sen_inducers': {
+        samples:[
+            ['C16', 'Cyc'],
+            ['C17', 'Cyc'],
+            ['C18', 'Cyc'],
+            ['E4', 'Etop'],
+            ['E5', 'Etop'],
+            ['E6', 'Etop'],
+            ['D1', 'Dox'],
+            ['D2', 'Dox'],
+            ['D3', 'Dox'],
+            ['N4', 'Nutlin'],
+            ['N5', 'Nutlin'],
+            ['N6', 'Nutlin'],
+            ['S4', 'NaB'],
+            ['S5', 'NaB'],
+            ['S6', 'NaB'],
+            ['P4', 'Palb'],
+            ['P5', 'Palb'],
+            ['P6', 'Palb'],
+            ['CX4', 'CX'],
+            ['CX5', 'CX'],
+            ['CX6', 'CX'],
+            ['SIQ1', 'SIQ'],
+            ['SIQ2', 'SIQ'],
+            ['SIQ3', 'SIQ'],
+        ],
+        cols:[
+            'sample',
+            'condition']}
 }
                
