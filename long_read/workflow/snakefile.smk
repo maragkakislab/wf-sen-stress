@@ -103,7 +103,7 @@ rule run_all:
         
         # tables aggregated across tables
         expand(
-            ANALYSIS_DIR + "{subset}/all_genome_counts.txt",
+            ANALYSIS_DIR + "/{subset}/all_genome_counts.txt",
             subset = comparisons.keys()
         ),
 
