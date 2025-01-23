@@ -79,31 +79,34 @@ localrules: run_all, dseq_initalize
 # Identified files will be produced
 rule run_all:
     input:
-        # Alignments BAM/BAI files
+        # alignments BAM/BAI files
         expand(
             SAMPLES_DIR + "/{s}/reads.{target}.sorted.{sufx}",
             s=samples.keys(),
             target=['toGenome', 'toTranscriptome'],
             sufx=['bam', 'bam.bai']),
 
-        # Flagstats
+        # flagstats
         expand(
             SAMPLES_DIR + "/{s}/reads.{target}.sorted.bam.flagstats.txt",
             s=samples.keys(),
             target=['toGenome', 'toTranscriptome']),
 
-        # Counts per transcript/gene
+        # counts per transcript/gene
         expand(
             ANALYSIS_DIR +
             "/counts/{s}/reads.{target}.txt",
             s=samples.keys(),
             target=['toGenome', 'toTranscriptome'],
             ),
- 
-        
+    
         # tables aggregated across tables
         expand(
             ANALYSIS_DIR + "/{subset}/all_genome_counts.txt",
             subset = comparisons.keys()
         ),
-
+         # deseq2 differential gene expression analysis
+         expand(
+            ANALYSIS_DIR + "/{subset}/contrasts.txt",
+            subset = comparisons.keys()
+        ),

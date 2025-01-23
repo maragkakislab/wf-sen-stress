@@ -26,4 +26,21 @@ rule dseq_initalize:
         dfs = [pd.read_csv(file_path, delimiter='\t') for file_path in input['files']]
         combined_df = pd.concat(dfs, axis=0, ignore_index=True)
         wide_df = combined_df.pivot(index= "gene", columns= 'sample', values = 'count')
-        wide_df.to_csv(output.counts, sep = '\t',index=False)
+        wide_df.to_csv(output.counts, sep = '\t')
+
+
+rule dseq_dge:
+    input:
+        counts = ANALYSIS_DIR + "/{subset}/all_genome_counts.txt",
+        metafile = ANALYSIS_DIR + "/{subset}/metafile.txt",
+    output:
+        ANALYSIS_DIR + "/{subset}/contrasts.txt"
+    log:
+        "logs/{subset}_deseq2.txt"
+    params:
+        model = "~ condition",
+        delim = "\t",
+    envmodules:
+        "R/4.4.0",
+    script:
+        "../scripts/deseq2.R"
