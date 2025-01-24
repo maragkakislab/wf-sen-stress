@@ -34,12 +34,11 @@ rule dseq_dge:
         counts = ANALYSIS_DIR + "/{subset}/all_genome_counts.txt",
         metafile = ANALYSIS_DIR + "/{subset}/metafile.txt",
     output:
-        ANALYSIS_DIR + "/{subset}/contrasts.txt"
-    log:
-        "logs/{subset}_deseq2.txt"
+       directory(ANALYSIS_DIR + "/{subset}/contrasts/")
     params:
-        model = "~ condition",
+        model = " ~ condition",
         delim = "\t",
+        odir = ANALYSIS_DIR + "/{subset}/contrasts/"
     envmodules:
         "R/4.4.0",
     script:
