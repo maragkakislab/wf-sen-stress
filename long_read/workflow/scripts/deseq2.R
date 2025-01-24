@@ -30,7 +30,7 @@ print(wd)
 print(snakemake@input[["counts"]]) # for debugging
 print(snakemake@input[["metafile"]]) # for debugging
 data_file <- read.delim(paste0(wd,snakemake@input[["counts"]]), header = TRUE, sep = snakemake@params[["delim"]], stringsAsFactors = F)
-metafile <- read.delim(paste0(wd,snakemake@input[["metafile"]]), header = TRUE, sep = snakemake@params[["delim"]], stringsAsFactors = T)
+metafile <- read.delim(paste0(wd,snakemake@input[["metafile"]]), header = TRUE, sep = snakemake@params[["delim"]], stringsAsFactors = F)
 print(colnames(metafile)) #for debugging
 print(colnames(data_file)) # for debugging
 
