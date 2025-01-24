@@ -107,6 +107,6 @@ rule run_all:
         ),
          # deseq2 differential gene expression analysis
          expand(
-            ANALYSIS_DIR + "/{subset}/contrasts.txt",
+            ANALYSIS_DIR + "/{subset}/contrasts/",
             subset = comparisons.keys()
         ),
