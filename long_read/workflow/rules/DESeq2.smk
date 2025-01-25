@@ -28,17 +28,21 @@ rule dseq_initalize:
         wide_df = combined_df.pivot(index= "gene", columns= 'sample', values = 'count')
         wide_df.to_csv(output.counts, sep = '\t')
 
-
 rule dseq_dge:
     input:
         counts = ANALYSIS_DIR + "/{subset}/all_genome_counts.txt",
         metafile = ANALYSIS_DIR + "/{subset}/metafile.txt",
     output:
-       directory(ANALYSIS_DIR + "/{subset}/contrasts/")
+       ANALYSIS_DIR + "/{subset}/contrasts/permutations_list.txt" #would like to make these contrasts temporary
+    resources:
+        mem_mb=5*1024,
+        runtime=3*60,
     params:
         model = " ~ condition",
         delim = "\t",
-        odir = ANALYSIS_DIR + "/{subset}/contrasts/"
+        odir = ANALYSIS_DIR + "/{subset}/contrasts/",
+        identifier = "hgnc_symbol",  # this will be moved to the config subset dictionary
+        genome = "hsapiens_gene_ensembl", # this will be moved to the config subset dictionary
     envmodules:
         "R/4.4.0",
     script:

@@ -7,6 +7,16 @@
 library(stringr)
 library("DESeq2")
 library(gtools)
+library(biomaRt)
+#### functions
+
+ensembl_to_gene<-function(df,mart){
+  id<-getBM(attributes = c(snakemake@params[["identifier"]],'description','gene_biotype','ensembl_gene_id'),
+          filters = 'ensembl_gene_id',
+          values = df$ensembl, 
+          mart = mart)
+  return(id)
+}
 
 ####DEPRACATED: Using direct snakemake@ calls now
 # option_list <- list(
@@ -36,7 +46,7 @@ print(colnames(data_file)) # for debugging
 
 #### prepare data_file for DESeq2
 data_matrix <- as.matrix(data_file[,-1])
-rownames(data_matrix)<- rownames(data_file$gene)
+rownames(data_matrix)<- data_file$gene
 
 #### DESeq 
 print(snakemake@params[["model"]])
@@ -71,19 +81,23 @@ permutations_list <- split(permutations, row(permutations))
 
 ### generates log2FC comparison for all available comparisons defined above.
 print(permutations_list[[1]][[1]])
-
+mart <- useEnsembl(biomart = "genes", dataset = snakemake@params[["genome"]])
+id<-NULL
 for (i in seq_along(permutations_list)) {
-  df <- as.data.frame(results(dds,contrast=c("condition",permutations_list[[i]][[1]],permutations_list[[i]][[2]])))
+  df<- as.data.frame(results(dds,contrast=c("condition",permutations_list[[i]][[1]],permutations_list[[i]][[2]])))
+  ensembl<-rownames(df)
+  df$ensembl<-ensembl
+  if (i==1){
+        id<-ensembl_to_gene(df,mart)}
+  annotated_df<-merge(id, df, by.y= "ensembl", by.x="ensembl_gene_id")
   name <- paste(permutations_list[[i]][[1]],permutations_list[[i]][[2]],sep="_")
   file_path <- file.path(snakemake@params[["odir"]], paste0(name, ".txt"))
-  write.table(df, file = file_path, row.names = TRUE, sep = snakemake@params[["delim"]])
+  write.table(annotated_df, file = file_path, row.names = TRUE, sep = snakemake@params[["delim"]])
 }
 
-### DEPRACATED WITH DIRECTORY CALL
 ### since output txt files will be variable based on available contrasts
 ### this file is used to let snakemake know the rule is completed
-# comparision < - resultsNames(dds)
-# write.table(comparison,file=paste0(odir,"contrasts.txt"), sep = snakemake@params[["delim"]])
+write.table(permutations,file=paste0(snakemake@params[["odir"]],"permutations_list.txt"), sep = snakemake@params[["delim"]])
 
 
 

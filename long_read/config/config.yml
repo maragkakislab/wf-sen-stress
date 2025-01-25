@@ -13,6 +13,7 @@ ASSEMBLY: 'hg38'
 DORADO_DEFAULT_MODEL: 'hac'
 DORADO_MODELS: {}
 
+
 # Sample data
 # Commented samples have already been processed
 ####[sample name, kit, flow cell, experiment, barcode]
