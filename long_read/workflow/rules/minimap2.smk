@@ -124,7 +124,7 @@ rule bamfile_flagstats:
 rule count_aligned_reads_per_transcript:
     input:
         aligned = SAMPLES_DIR + "/{s}/reads.toTranscriptome.bam",
-        transcript_tab = DATA_DIR + "/" + ASSEMBLY + "/transcript-gene.tab",
+        transcript_tab = DATA_DIR + "/" + ASSEMBLY + "/transcript_gene.tab",
     output:
         ANALYSIS_DIR + "/counts/{s}/reads.toTranscriptome.txt",
     conda:
