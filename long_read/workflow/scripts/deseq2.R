@@ -81,18 +81,18 @@ permutations_list <- split(permutations, row(permutations))
 
 ### generates log2FC comparison for all available comparisons defined above.
 print(permutations_list[[1]][[1]])
-mart <- useEnsembl(biomart = "genes", dataset = snakemake@params[["genome"]])
 id<-NULL
 for (i in seq_along(permutations_list)) {
   df<- as.data.frame(results(dds,contrast=c("condition",permutations_list[[i]][[1]],permutations_list[[i]][[2]])))
   ensembl<-rownames(df)
   df$ensembl<-ensembl
   if (i==1){
+        mart <- useEnsembl(biomart = "genes", dataset = snakemake@params[["genome"]])
         id<-ensembl_to_gene(df,mart)}
   annotated_df<-merge(id, df, by.y= "ensembl", by.x="ensembl_gene_id")
   name <- paste(permutations_list[[i]][[1]],permutations_list[[i]][[2]],sep="_")
   file_path <- file.path(snakemake@params[["odir"]], paste0(name, ".txt"))
-  write.table(annotated_df, file = file_path, row.names = TRUE, sep = snakemake@params[["delim"]])
+  write.table(annotated_df, file = file_path, row.names = FALSE, sep = snakemake@params[["delim"]])
 }
 
 ### since output txt files will be variable based on available contrasts
