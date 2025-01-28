@@ -28,12 +28,32 @@ rule dseq_initalize:
         wide_df = combined_df.pivot(index= "gene", columns= 'sample', values = 'count')
         wide_df.to_csv(output.counts, sep = '\t')
 
+
+rule ensembl_to_geneID:
+    input:
+        transcript_tab =  DATA_DIR + "/" + ASSEMBLY + "/transcript_gene.tab",
+    output:
+        ENSG_metadata =  DATA_DIR + "/" + ASSEMBLY + "/ENSG_metadata.tab",
+    resources:
+        mem_mb=5*1024,
+        runtime = 1*60
+    retries:
+        3
+    params:
+        identifier = "hgnc_symbol",  # this will be moved to the config subset dictionary
+        genome = "hsapiens_gene_ensembl", # this will be moved to the config subset dictionary
+    envmodules:
+        "R/4.4.0",
+    script:
+        "../scripts/biomart.R"
+
 rule dseq_dge:
     input:
         counts = ANALYSIS_DIR + "/{subset}/all_genome_counts.txt",
         metafile = ANALYSIS_DIR + "/{subset}/metafile.txt",
+        ENSG_metadata =  DATA_DIR + "/" + ASSEMBLY + "/ENSG_metadata.tab",
     output:
-       ANALYSIS_DIR + "/{subset}/contrasts/permutations_list.txt" #would like to make these contrasts temporary
+       ANALYSIS_DIR + "/{subset}/contrasts/permutations_list.txt" 
     resources:
         mem_mb=5*1024,
         runtime=3*60,
@@ -41,8 +61,6 @@ rule dseq_dge:
         model = " ~ condition",
         delim = "\t",
         odir = ANALYSIS_DIR + "/{subset}/contrasts/",
-        identifier = "hgnc_symbol",  # this will be moved to the config subset dictionary
-        genome = "hsapiens_gene_ensembl", # this will be moved to the config subset dictionary
     envmodules:
         "R/4.4.0",
     script:
