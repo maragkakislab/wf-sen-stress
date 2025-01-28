@@ -1,6 +1,7 @@
 import sys
 import glob
 import pandas as pd
+import re
 # Load config
 if "--configfile" in sys.argv:
     i = sys.argv.index("--configfile")
@@ -70,6 +71,7 @@ subsets = comparisons.keys()
 include: "rules/dorado.smk"
 include: "rules/minimap2.smk"
 include: "rules/DESeq2.smk"
+# include: "rules/volcano_plot.smk"
 
 # Define rules that require minimal resources and can run on the same node
 # where the actual snakemake is running. Should be low demand processess
@@ -106,7 +108,7 @@ rule run_all:
             subset = comparisons.keys()
         ),
          # deseq2 differential gene expression analysis
-         expand(
+        expand(
             ANALYSIS_DIR + "/{subset}/contrasts/permutations_list.txt",
             subset = comparisons.keys()
-        ),
+        ),        
