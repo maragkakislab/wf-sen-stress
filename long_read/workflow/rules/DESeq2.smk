@@ -47,13 +47,15 @@ rule ensembl_to_geneID:
     script:
         "../scripts/biomart.R"
 
-rule dseq_dge:
+localrules: dseq_dge
+checkpoint dseq_dge:
     input:
         counts = ANALYSIS_DIR + "/{subset}/all_genome_counts.txt",
         metafile = ANALYSIS_DIR + "/{subset}/metafile.txt",
         ENSG_metadata =  DATA_DIR + "/" + ASSEMBLY + "/ENSG_metadata.tab",
     output:
-       ANALYSIS_DIR + "/{subset}/contrasts/permutations_list.txt" 
+       out = directory(ANALYSIS_DIR + "/{subset}/contrasts/"),
+       permutations = ANALYSIS_DIR + "/{subset}/permutations_list.txt",
     resources:
         mem_mb=5*1024,
         runtime=3*60,

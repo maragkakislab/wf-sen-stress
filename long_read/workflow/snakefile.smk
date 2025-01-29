@@ -65,13 +65,23 @@ for d in config['SAMPLE_DATA']:
     experiments[s.parent_exp] = experiment(s.parent_exp, s.kit, s.fc,
                                            s.is_barcoded())
 comparisons = config['COMPARISONS']
-subsets = comparisons.keys()
+
+
 
 ##### include rules #####
 include: "rules/dorado.smk"
 include: "rules/minimap2.smk"
 include: "rules/DESeq2.smk"
-# include: "rules/volcano_plot.smk"
+include: "rules/volcano_plot.smk"
+
+def get_contrast_names(wilds):
+    subsets = comparisons.keys()
+    outputs = []
+    for subset in subsets:
+        contrast_dir = checkpoints.dseq_dge.get(subset=subset).output[0]
+        contrast_names = glob_wildcards(os.path.join(contrast_dir, "{sample}.txt"))
+        outputs += expand(contrast_dir + "/{sample}.svg", sample=contrast_names.sample)
+    return outputs
 
 # Define rules that require minimal resources and can run on the same node
 # where the actual snakemake is running. Should be low demand processess
@@ -112,3 +122,11 @@ rule run_all:
             ANALYSIS_DIR + "/{subset}/contrasts/permutations_list.txt",
             subset = comparisons.keys()
         ),        
+
+        # expand(
+        #     ANALYSIS_DIR + "/{subset}/contrasts/plots/{contrast}.svg",
+        #     subset = comparisons.keys(),
+        #     contrast = samples.keys()
+        # ),
+
+        get_contrast_names
