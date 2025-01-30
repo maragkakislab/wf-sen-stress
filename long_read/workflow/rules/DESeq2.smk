@@ -47,7 +47,7 @@ rule ensembl_to_geneID:
     script:
         "../scripts/biomart.R"
 
-localrules: dseq_dge
+#localrules: dseq_dge ###toggle to debug this in dry run
 checkpoint dseq_dge:
     input:
         counts = ANALYSIS_DIR + "/{subset}/all_genome_counts.txt",

@@ -79,8 +79,8 @@ def get_contrast_names(wilds):
     outputs = []
     for subset in subsets:
         contrast_dir = checkpoints.dseq_dge.get(subset=subset).output[0]
-        contrast_names = glob_wildcards(os.path.join(contrast_dir, "{sample}.txt"))
-        outputs += expand(contrast_dir + "/{sample}.svg", sample=contrast_names.sample)
+        contrast_names = glob_wildcards(os.path.join(contrast_dir, "{contrast}.txt"))
+        outputs += expand(contrast_dir + "/plots/{contrast}/volcano.svg", contrast=contrast_names.contrast)
     return outputs
 
 # Define rules that require minimal resources and can run on the same node
@@ -122,11 +122,5 @@ rule run_all:
             ANALYSIS_DIR + "/{subset}/contrasts/permutations_list.txt",
             subset = comparisons.keys()
         ),        
-
-        # expand(
-        #     ANALYSIS_DIR + "/{subset}/contrasts/plots/{contrast}.svg",
-        #     subset = comparisons.keys(),
-        #     contrast = samples.keys()
-        # ),
 
         get_contrast_names

@@ -3,12 +3,9 @@ library(ggrepel)
 
 #### Load in data
 RNA<-read_tsv(snakemake@input[["tsv_data"]])
-RNA<-RNA%>%filter(baseMean>=snakemake@input[["baseline"]])%>%na.omit()
+RNA<-RNA%>%filter(baseMean>=snakemake@params[["baseline"]])%>%na.omit()
 
 #### Metasheet
-metasheet<-function(up,down){
-  no_change<-nrow(RNA[between(log2FoldChange,down,up)])
-}
 
 
 no_change<-RNA%>%filter(between(log2FoldChange,-1,1))%>%nrow()
@@ -23,23 +20,23 @@ stats<-data.frame(
 write.table(stats,file=paste0(snakemake@params[["odir"]],"stats.txt"),sep='\t')
 
 #### Top genes
+top_genes<-function(number){
+  top_up<-head(RNA[order(RNA$log2FoldChange,decreasing = T),],number)
+  top_down<-head(RNA[order(RNA$log2FoldChange,decreasing = F),],number)
+  wgt_top_up<-head(RNA[order(RNA$log2FoldChange*RNA$baseMean,decreasing = T),],number)
+  wgt_top_down<-head(RNA[order(RNA$log2FoldChange*RNA$baseMean,decreasing = F),],number)
+  top_genes<-rbind(top_ten_up,top_ten_down,wgt_top_ten_up,wgt_top_ten_down)
+  write.table(top_genes,file=paste0(snakemake@params[["odir"]],"top_genes.txt"),sep='\t')
+}
 
-top_up<-head(RNA[order(RNA$log2FoldChange,decreasing = T),],
-             snakemake@params[["top_number"]])
-top_down<-head(RNA[order(RNA$log2FoldChange,decreasing = F),],
-               snakemake@params[["top_number"]])
-wgt_top_up<-head(RNA[order(RNA$log2FoldChange*RNA$baseMean,decreasing = T),],
-                 snakemake@params[["top_number"]])
-wgt_top_down<-head(RNA[order(RNA$log2FoldChange*RNA$baseMean,decreasing = F),],
-                   snakemake@params[["top_number"]])
+top_genes(snakemake@params[["top_number"]])
 
-top_genes<-rbind(top_ten_up,top_ten_down,wgt_top_ten_up,wgt_top_ten_down)
 
-write.table(stats,file=paste0(snakemake@params[["odir"]],"top_genes.txt"),sep='\t')
+
 
 
 #### Volcano Plot
-label_pos<-seq(50,25,-1.5) ## sets y coordinate for annotation
+label_pos<-seq(50,25,-2) ## sets y coordinate for annotation
 
 
 plot<-ggplot()+
@@ -49,7 +46,7 @@ plot<-ggplot()+
                              RNA$log2FoldChange>1&RNA$padj<0.05~"#004D40",
                              T~"black"))+
   geom_hline(yintercept = -log10(0.05),color="#4682B4",size=1,linetype=2)+
-  xlab(snakemake@input[["contrast"]])+ ylab("-log10 padj")+
+  xlab(snakemake@params[["contrast"]])+ ylab("-log10 padj")+
   theme_classic()+
   coord_cartesian(xlim=c(-6,6),ylim=c(0,50))+
   theme(axis.text.x = element_text(size =20,color="black"),
@@ -64,4 +61,5 @@ plot<-ggplot()+
            hjust = 0)
 
 
-ggsave(plot, "svg", path=paste0(snakemake@output[["plot"]],"volcano.svg"), dpi="print",width=7,height=5, units = "in")
+ggsave(filename= snakemake@output[["plot"]], plot = plot, device = "svg", path=snakemake@params[["odir"]],
+        dpi="print",width=7,height=5, units = "in")
