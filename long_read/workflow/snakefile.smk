@@ -67,7 +67,6 @@ for d in config['SAMPLE_DATA']:
 comparisons = config['COMPARISONS']
 
 
-
 ##### include rules #####
 include: "rules/dorado.smk"
 include: "rules/minimap2.smk"
@@ -117,10 +116,17 @@ rule run_all:
             ANALYSIS_DIR + "/{subset}/all_genome_counts.txt",
             subset = comparisons.keys()
         ),
-         # deseq2 differential gene expression analysis
-        expand(
-            ANALYSIS_DIR + "/{subset}/contrasts/permutations_list.txt",
-            subset = comparisons.keys()
-        ),        
+        
+        # # contrasts
+        # expand(
+        #     ANALYSIS_DIR + "/{subset}/permutations_list.txt",
+        #     subset = comparisons.keys()
+        # ),        
 
-        get_contrast_names
+        # get_contrast_names,
+
+        # metafile
+        expand(
+            ANALYSIS_DIR + "/{subset}/metafile.txt",
+            subset = comparisons.keys()
+        ),     

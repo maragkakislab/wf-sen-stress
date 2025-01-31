@@ -11,22 +11,28 @@ rule dseq_initalize:
         counts = ANALYSIS_DIR + "/{subset}/all_genome_counts.txt",
         metafile = ANALYSIS_DIR + "/{subset}/metafile.txt",
     run:
-        # create a metafile
-        subset = wildcards.subset
-        print(f"Subset: {subset}")
-        samples = comparisons[subset]['samples']
-        cols = comparisons[subset]['cols']
-        print(f"cols: {cols}")
-        data = pd.DataFrame(columns = cols)
-        for i in range(len(samples)):
-            data.loc[i] = samples[i]
-        data.to_csv(output.metafile, sep = '\t',index=False)
-       
         # aggregate reads
         dfs = [pd.read_csv(file_path, delimiter='\t') for file_path in input['files']]
         combined_df = pd.concat(dfs, axis=0, ignore_index=True)
         wide_df = combined_df.pivot(index= "gene", columns= 'sample', values = 'count')
+        names = wide_df.columns.tolist()
         wide_df.to_csv(output.counts, sep = '\t')
+
+        # set subset
+        subset = wildcards.subset
+        #sort samples by name order
+        meta = comparisons[subset]['samples']
+        print(names)
+        print(meta)
+        sorted_meta = sorted(meta, key=lambda x: names.index(x[0]))
+        # generate metafile based on assigned cols
+        cols = comparisons[subset]['cols']
+        data = pd.DataFrame(columns = cols)
+        for i in range(len(sorted_meta)):
+            data.loc[i] = sorted_meta[i]
+        data.to_csv(output.metafile, sep = '\t',index=False)
+       
+
 
 
 rule ensembl_to_geneID:
