@@ -17,7 +17,7 @@ stats<-data.frame(
   increase = increase,
   decrease = decrease)
 
-write.table(stats,file=paste0(snakemake@params[["odir"]],"stats.txt"),sep='\t')
+write.table(stats,file=paste0(snakemake@params[["odir"]],"stats.txt"),sep='\t', row.names=FALSE)
 
 #### Top genes
 top_genes<-function(number){
@@ -25,7 +25,7 @@ top_genes<-function(number){
   top_down<-head(RNA[order(RNA$log2FoldChange,decreasing = F),],number)
   wgt_top_up<-head(RNA[order(RNA$log2FoldChange*RNA$baseMean,decreasing = T),],number)
   wgt_top_down<-head(RNA[order(RNA$log2FoldChange*RNA$baseMean,decreasing = F),],number)
-  top_genes<-rbind(top_ten_up,top_ten_down,wgt_top_ten_up,wgt_top_ten_down)
+  top_genes<-rbind(top_up,top_down,wgt_top_up,wgt_top_down)
   write.table(top_genes,file=paste0(snakemake@params[["odir"]],"top_genes.txt"),sep='\t')
 }
 
@@ -36,7 +36,7 @@ top_genes(snakemake@params[["top_number"]])
 
 
 #### Volcano Plot
-label_pos<-seq(50,25,-2) ## sets y coordinate for annotation
+label_pos<-seq(50,15,-2) ## sets y coordinate for annotation
 
 
 plot<-ggplot()+

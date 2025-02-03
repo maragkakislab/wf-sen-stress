@@ -60,7 +60,7 @@ checkpoint dseq_dge:
         metafile = ANALYSIS_DIR + "/{subset}/metafile.txt",
         ENSG_metadata =  DATA_DIR + "/" + ASSEMBLY + "/ENSG_metadata.tab",
     output:
-       out = directory(ANALYSIS_DIR + "/{subset}/contrasts/"),
+       out = directory(ANALYSIS_DIR + "/{subset}/contrasts"),
        permutations = ANALYSIS_DIR + "/{subset}/permutations_list.txt",
     resources:
         mem_mb=5*1024,
@@ -68,7 +68,7 @@ checkpoint dseq_dge:
     params:
         model = " ~ condition",
         delim = "\t",
-        odir = ANALYSIS_DIR + "/{subset}/contrasts/",
+        odir = ANALYSIS_DIR + "/{subset}/contrasts",
     envmodules:
         "R/4.4.0",
     script:

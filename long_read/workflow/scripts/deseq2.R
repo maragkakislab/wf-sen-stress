@@ -39,6 +39,10 @@ permutations_list <- split(permutations, row(permutations))
 ### generates log2FC comparison for all available comparisons defined above.
 print(permutations_list[[1]][[1]])
 id<-read.delim(snakemake@input[["ENSG_metadata"]], header = TRUE, sep = snakemake@params[["delim"]], stringsAsFactors = F)
+if (!dir.exists(snakemake@params[["odir"]])) {
+  dir.create(snakemake@params[["odir"]], recursive = TRUE)
+}
+
 for (i in seq_along(permutations_list)) {
   df<- as.data.frame(results(dds,contrast=c("condition",permutations_list[[i]][[1]],permutations_list[[i]][[2]])))
   ensembl<-rownames(df)
@@ -46,12 +50,13 @@ for (i in seq_along(permutations_list)) {
   annotated_df<-merge(id, df, by.y= "ensembl", by.x="ensembl_gene_id")
   name <- paste(permutations_list[[i]][[1]],permutations_list[[i]][[2]],sep="_")
   file_path <- file.path(snakemake@params[["odir"]], paste0(name, ".txt"))
+  print(file_path)
   write.table(annotated_df, file = file_path, row.names = FALSE, sep = snakemake@params[["delim"]])
 }
 
 ### since output txt files will be variable based on available contrasts
 ### this file is used to let snakemake know the rule is completed
-write.table(permutations,file=snakemake@output[["permutations"]]), row.names=FALSE, sep = snakemake@params[["delim"]])
+write.table(permutations,file=snakemake@output[["permutations"]], row.names=FALSE, sep = snakemake@params[["delim"]])
 
 
 

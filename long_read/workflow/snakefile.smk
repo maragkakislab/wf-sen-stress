@@ -117,16 +117,17 @@ rule run_all:
             subset = comparisons.keys()
         ),
         
-        # # contrasts
-        # expand(
-        #     ANALYSIS_DIR + "/{subset}/permutations_list.txt",
-        #     subset = comparisons.keys()
-        # ),        
-
-        # get_contrast_names,
-
         # metafile
         expand(
             ANALYSIS_DIR + "/{subset}/metafile.txt",
             subset = comparisons.keys()
         ),     
+
+        # contrasts
+        expand(
+            ANALYSIS_DIR + "/{subset}/permutations_list.txt",
+            subset = comparisons.keys()
+        ),        
+
+        get_contrast_names,
+
