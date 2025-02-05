@@ -37,7 +37,8 @@ top_genes(snakemake@params[["top_number"]])
 
 #### Volcano Plot
 label_pos<-seq(50,15,-2) ## sets y coordinate for annotation
-
+top_up<-head(RNA[order(RNA$log2FoldChange,decreasing = T),],number)
+top_down<-head(RNA[order(RNA$log2FoldChange,decreasing = F),],number)
 
 plot<-ggplot()+
   geom_point(data=RNA,
@@ -45,7 +46,7 @@ plot<-ggplot()+
              color=case_when(RNA$log2FoldChange< -1 & RNA$padj<0.05~"#B22222",
                              RNA$log2FoldChange>1&RNA$padj<0.05~"#004D40",
                              T~"black"))+
-  geom_hline(yintercept = -log10(0.05),color="#4682B4",size=1,linetype=2)+
+  geom_hline(yintercept = -log10(0.05),color="#4682B4",linewidth=1,linetype=2)+
   xlab(snakemake@params[["contrast"]])+ ylab("-log10 padj")+
   theme_classic()+
   coord_cartesian(xlim=c(-6,6),ylim=c(0,50))+
@@ -59,7 +60,6 @@ plot<-ggplot()+
            hjust = 0)+
   annotate("text", x=2,y=label_pos[1:11],label=c("Top Increased Genes\n",top_up$hgnc_symbol[1:10]),
            hjust = 0)
+print("plot generated")
 
-
-ggsave(filename= snakemake@output[["plot"]], plot = plot, device = "svg", path=snakemake@params[["odir"]],
-        dpi="print",width=7,height=5, units = "in")
+ggsave(filename= snakemake@output[["plot"]], plot = plot, device = "svg", width=7,height=5, units = "in")
