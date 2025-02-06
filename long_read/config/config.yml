@@ -19,6 +19,24 @@ DORADO_MODELS: {}
 ####[sample name, kit, flow cell, experiment, barcode]
 
 SAMPLE_DATA: [
+    ['IL1a01', 'SQK-PCB111-24', 'FLO-PRO002', '20250104_hsa_PCR_IMR90_Paracrine_1', '01'],
+    ['IL1a02', 'SQK-PCB111-24', 'FLO-PRO002', '20250104_hsa_PCR_IMR90_Paracrine_1', '02'],
+    ['IL1a03', 'SQK-PCB111-24', 'FLO-PRO002', '20250104_hsa_PCR_IMR90_Paracrine_1', '03'],
+    ['IL1a04', 'SQK-PCB111-24', 'FLO-PRO002', '20250104_hsa_PCR_IMR90_Paracrine_1', '04'],
+    ['IL1a05', 'SQK-PCB111-24', 'FLO-PRO002', '20250104_hsa_PCR_IMR90_Paracrine_1', '05'],
+    ['IL1a06', 'SQK-PCB111-24', 'FLO-PRO002', '20250104_hsa_PCR_IMR90_Paracrine_1', '06'],
+    ['IL1a07', 'SQK-PCB111-24', 'FLO-PRO002', '20250104_hsa_PCR_IMR90_Paracrine_1', '07'],
+    ['IL1a08', 'SQK-PCB111-24', 'FLO-PRO002', '20250104_hsa_PCR_IMR90_Paracrine_1', '08'],
+    ['IL1a09', 'SQK-PCB111-24', 'FLO-PRO002', '20250104_hsa_PCR_IMR90_Paracrine_1', '09'],
+    ['IL1a10', 'SQK-PCB111-24', 'FLO-PRO002', '20250104_hsa_PCR_IMR90_Paracrine_1', '10'],
+    ['IL1a11', 'SQK-PCB111-24', 'FLO-PRO002', '20250104_hsa_PCR_IMR90_Paracrine_1', '11'],
+    ['IL1a12', 'SQK-PCB111-24', 'FLO-PRO002', '20250104_hsa_PCR_IMR90_Paracrine_1', '12'],
+    ['GDF04', 'SQK-PCB111-24', 'FLO-PRO002', '20250104_hsa_PCR_IMR90_Paracrine_1', '16'],
+    ['GDF05', 'SQK-PCB111-24', 'FLO-PRO002', '20250104_hsa_PCR_IMR90_Paracrine_1', '17'],
+    ['GDF06', 'SQK-PCB111-24', 'FLO-PRO002', '20250104_hsa_PCR_IMR90_Paracrine_1', '18'],
+    ['GDF10', 'SQK-PCB111-24', 'FLO-PRO002', '20250104_hsa_PCR_IMR90_Paracrine_1', '22'],
+    ['GDF11', 'SQK-PCB111-24', 'FLO-PRO002', '20250104_hsa_PCR_IMR90_Paracrine_1', '23'],
+    ['GDF12', 'SQK-PCB111-24', 'FLO-PRO002', '20250104_hsa_PCR_IMR90_Paracrine_1', '24'],
     ['C16', 'SQK-PCB111-24', 'FLO-PRO002', '20250102_hsa_PCR_IMR90_seninducers_2B', '01'],
     ['C17', 'SQK-PCB111-24', 'FLO-PRO002', '20250102_hsa_PCR_IMR90_seninducers_2B', '02'],
     ['C18', 'SQK-PCB111-24', 'FLO-PRO002', '20250102_hsa_PCR_IMR90_seninducers_2B', '03'],
@@ -208,6 +226,29 @@ COMPARISONS: {
         ],
         cols:[
             'sample',
-            'condition']}
-}
-               
+            'condition']},
+    'paracrine_IL1a_GDF15': {
+        samples:[
+            ['IL1a01', 'Untreated'],
+            ['IL1a02', 'Untreated'],
+            ['IL1a03', 'Untreated'],
+            ['IL1a04', 'IL1a_1.0ng'],
+            ['IL1a05', 'IL1a_1.0ng'],
+            ['IL1a06', 'IL1a_1.0ng'],
+            ['IL1a07', 'Untreated'],
+            ['IL1a08', 'Untreated'],
+            ['IL1a09', 'Untreated'],
+            ['IL1a10', 'IL1a_10.0ng'],
+            ['IL1a11', 'IL1a_10.0ng'],
+            ['IL1a12', 'IL1a_10.0ng'],
+            ['GDF04', 'GDF15_1.0ng'],
+            ['GDF05', 'GDF15_1.0ng'],
+            ['GDF06', 'GDF15_1.0ng'],
+            ['GDF10', 'GDF15_10.0ng'],
+            ['GDF11', 'GDF15_10.0ng'],
+            ['GDF12', 'GDF15_10.0ng'],
+            ],
+        cols:[
+            'sample',
+            'condition']},
+    }
