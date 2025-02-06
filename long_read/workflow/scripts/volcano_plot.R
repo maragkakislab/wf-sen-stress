@@ -37,8 +37,8 @@ top_genes(snakemake@params[["top_number"]])
 
 #### Volcano Plot
 label_pos<-seq(50,15,-2) ## sets y coordinate for annotation
-top_up<-head(RNA[order(RNA$log2FoldChange,decreasing = T),],number)
-top_down<-head(RNA[order(RNA$log2FoldChange,decreasing = F),],number)
+top_up<-head(RNA[order(RNA$log2FoldChange,decreasing = T),],snakemake@params[["top_number"]])
+top_down<-head(RNA[order(RNA$log2FoldChange,decreasing = F),],snakemake@params[["top_number"]])
 
 plot<-ggplot()+
   geom_point(data=RNA,
