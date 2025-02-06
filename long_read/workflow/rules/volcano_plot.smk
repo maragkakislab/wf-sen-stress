@@ -8,6 +8,8 @@ rule volcano_plot:
         plot = ANALYSIS_DIR + "/{subset}/contrasts/plots/{contrast}/volcano.svg",
     resources:
         mem_mb=5*1024,
+    wildcard_constraints:  
+        contrast = "[^/]+", # This prevents {contrast} from becoming a directory path
     params:
         odir = ANALYSIS_DIR + "/{subset}/contrasts/plots/{contrast}/",
         baseline = 1,
