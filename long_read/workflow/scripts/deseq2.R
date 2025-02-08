@@ -49,7 +49,7 @@ for (i in seq_along(permutations_list)) {
   df$ensembl<-ensembl
   annotated_df<-merge(id, df, by.y= "ensembl", by.x="ensembl_gene_id")
   name <- paste(permutations_list[[i]][[1]],permutations_list[[i]][[2]],sep="_")
-  file_path <- file.path(snakemake@params[["odir"]], paste0(name, ".txt"))
+  file_path <- file.path(snakemake@params[["odir"]], paste0(name, ".dge.txt"))
   print(file_path)
   write.table(annotated_df, file = file_path, row.names = FALSE, sep = snakemake@params[["delim"]])
 }

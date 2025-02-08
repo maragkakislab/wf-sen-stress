@@ -3,7 +3,7 @@
 
 rule volcano_plot:
     input:
-        tsv_data = ANALYSIS_DIR + "/{subset}/contrasts/{contrast}.txt",
+        tsv_data = ANALYSIS_DIR + "/{subset}/contrasts/{contrast}.dge.txt",
     output:
         plot = ANALYSIS_DIR + "/{subset}/contrasts/plots/{contrast}/volcano.svg",
     resources:

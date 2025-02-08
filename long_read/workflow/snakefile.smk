@@ -78,7 +78,8 @@ def get_contrast_names(wilds):
     outputs = []
     for subset in subsets:
         contrast_dir = checkpoints.dseq_dge.get(subset=subset).output[0]
-        contrast_names = glob_wildcards(os.path.join(contrast_dir, "{contrast}.txt"))
+        print(contrast_dir)
+        contrast_names = glob_wildcards(os.path.join(contrast_dir, "{contrast}.dge.txt"))
         outputs += expand(contrast_dir + "/plots/{contrast}/volcano.svg", contrast=contrast_names.contrast)
     return outputs
 
