@@ -44,7 +44,7 @@ if (!dir.exists(snakemake@params[["odir"]])) {
 }
 
 for (i in seq_along(permutations_list)) {
-  df<- as.data.frame(results(dds,contrast=c("condition",permutations_list[[i]][[1]],permutations_list[[i]][[2]])))
+  df<- as.data.frame(results(dds, contrast=c("condition",permutations_list[[i]][[1]],permutations_list[[i]][[2]])))
   ensembl<-rownames(df)
   df$ensembl<-ensembl
   annotated_df<-merge(id, df, by.y= "ensembl", by.x="ensembl_gene_id")
