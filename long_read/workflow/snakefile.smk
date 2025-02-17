@@ -80,7 +80,9 @@ def get_contrast_names(wilds):
         contrast_dir = checkpoints.dseq_dge.get(subset=subset).output[0]
         print(contrast_dir)
         contrast_names = glob_wildcards(os.path.join(contrast_dir, "{contrast}.dge.txt"))
-        outputs += expand(contrast_dir + "/plots/{contrast}/volcano.svg", contrast=contrast_names.contrast)
+        outputs += expand(contrast_dir + "/plots/{contrast}/{plot}.pdf", 
+        contrast=contrast_names.contrast,
+        plot = ['volcano','marker']) #could go to config file
     return outputs
 
 # Define rules that require minimal resources and can run on the same node
