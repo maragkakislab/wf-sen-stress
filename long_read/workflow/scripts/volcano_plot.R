@@ -62,4 +62,4 @@ plot<-ggplot()+
            hjust = 0)
 print("plot generated")
 
-ggsave(filename= snakemake@output[["plot"]], plot = plot, device = "svg", width=7,height=5, units = "in")
+ggsave(filename= snakemake@output[["plot"]], plot = plot, device = "pdf", width=7,height=5, units = "in")
