@@ -3,4 +3,4 @@ raw/
 analysis/
 *.gz
 *.DS_Store
-.snakemake*
+long_read/.snakemake*
