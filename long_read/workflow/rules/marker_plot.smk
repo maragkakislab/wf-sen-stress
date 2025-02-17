@@ -8,8 +8,7 @@ rule marker_plot:
         mem_mb=5*1024,
     params:
         odir = ANALYSIS_DIR + "/{subset}/contrasts/plots/{contrast}/",
-        baseline = 1,
-        top_number = 10, #Move to config
+        marker_genes = config['MARKERS']
         contrast = lambda wilds: wilds.contrast
     envmodules:
         "R/4.4.0",
