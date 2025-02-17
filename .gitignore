@@ -3,3 +3,4 @@ raw/
 analysis/
 *.gz
 *.DS_Store
+.snakemake
