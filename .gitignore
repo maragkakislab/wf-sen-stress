@@ -4,3 +4,4 @@ analysis/
 *.gz
 *.DS_Store
 long_read/.snakemake*
+.snakemake*
