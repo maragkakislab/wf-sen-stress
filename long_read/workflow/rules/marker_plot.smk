@@ -3,7 +3,7 @@ rule marker_plot:
     input:
         tsv_data = ANALYSIS_DIR + "/{subset}/contrasts/{contrast}.dge.txt",
     output:
-        plot = ANALYSIS_DIR + "/{subset}/contrasts/plots/{contrast}/markers.pdf",
+        plot = ANALYSIS_DIR + "/{subset}/contrasts/plots/{contrast}/marker.pdf",
     resources:
         mem_mb=5*1024,
     params:
