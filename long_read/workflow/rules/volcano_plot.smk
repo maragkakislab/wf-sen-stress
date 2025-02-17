@@ -5,7 +5,7 @@ rule volcano_plot:
     input:
         tsv_data = ANALYSIS_DIR + "/{subset}/contrasts/{contrast}.dge.txt",
     output:
-        plot = ANALYSIS_DIR + "/{subset}/contrasts/plots/{contrast}/volcano.svg",
+        plot = ANALYSIS_DIR + "/{subset}/contrasts/plots/{contrast}/volcano.pdf",
     resources:
         mem_mb=5*1024,
     wildcard_constraints:  
