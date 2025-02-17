@@ -3,7 +3,7 @@ library(ggrepel)
 
 #### Load in data
 RNA<-read_tsv(snakemake@input[["tsv_data"]])
-markers<-snakemake@params[["marker_genes"]]
+markers<-unlist(snakemake@params[["marker_genes"]])
 
 print(markers)
 
@@ -24,7 +24,8 @@ sen_markers<-function(df){
     geom_hline(yintercept = 0)+
     theme_classic()+theme(axis.text.x = element_text(angle=45, vjust = 0.5))+
     theme(axis.text = element_text(size=14,color="black"))+
-    coord_cartesian(ylim=c(-10,10))
+    coord_cartesian(ylim=c(-10,10))+
+    ggtitle(snakemake@params[["contrast"]])
     
   return(plot)
 }

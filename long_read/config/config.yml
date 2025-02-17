@@ -174,7 +174,7 @@ SAMPLE_DATA: [
 # DESeq2 Subsets
 COMPARISONS: {
     'ars_viability': {
-        samples:[
+        samples: [
             ['CA_0A','Cyc_0'],
             ['CA_0B','Cyc_0'],
             ['CA_0C','Cyc_0'],
@@ -194,11 +194,11 @@ COMPARISONS: {
             ['EA_9B','E_9'],
             ['EA_9C','E_9']
             ],     
-        cols:[
+        cols: [
             'sample',
             'condition']},
     'alt_sen_inducers': {
-        samples:[
+        samples: [
             ['C16', 'Cyc'],
             ['C17', 'Cyc'],
             ['C18', 'Cyc'],
@@ -224,11 +224,11 @@ COMPARISONS: {
             ['SIQ2', 'SIQ'],
             ['SIQ3', 'SIQ'],
         ],
-        cols:[
+        cols: [
             'sample',
             'condition']},
     'paracrine_IL1a_GDF15': {
-        samples:[
+        samples: [
             ['IL1a01', 'Untreated'],
             ['IL1a02', 'Untreated'],
             ['IL1a03', 'Untreated'],
@@ -248,7 +248,10 @@ COMPARISONS: {
             ['GDF11', 'GDF15_10.0ng'],
             ['GDF12', 'GDF15_10.0ng'],
             ],
-        cols:[
+        cols: [
             'sample',
             'condition']},
     }
+
+
+MARKER: ['CDKN1A', 'LMNB1', 'ATF4','GDF15', 'CXCL8', 'MCM7']
