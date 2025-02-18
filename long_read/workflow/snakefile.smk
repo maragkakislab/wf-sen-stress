@@ -72,6 +72,7 @@ include: "rules/dorado.smk"
 include: "rules/minimap2.smk"
 include: "rules/DESeq2.smk"
 include: "rules/volcano_plot.smk"
+include: "rules/marker_plot.smk"
 
 def get_contrast_names(wilds):
     subsets = comparisons.keys()
