@@ -13,4 +13,4 @@ rule marker_plot:
     envmodules:
         "R/4.4.0",
     script:
-        "../scripts/markers_plot.R"
+        "/scripts/marker_plot.R"
